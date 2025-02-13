@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentos nossos</title>
+    <link rel="icon" type="image/png" href="icone.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chivo:wght@100..900&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Corinthia:wght@400;700&family=Varela+Round&display=swap"
+        rel="stylesheet">
+
+
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #10072a, #04000d);
+        }
+
+        .container {
+            z-index: 2;
+        }
+
+
+
+
+        .carregando {
+            font-size: 23px;
+            font-family: "Varela Round", sans-serif;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            margin: calc(50vh - 18px) calc(50vw - 110px);
+            border-radius: 14px;
+            background: linear-gradient(45deg, rgb(19 33 175), rgb(175 135 255));
+            padding: 5px;
+            transition: all 0.8s;
+        }
+
+        .animacao_pulsar {
+            height: 300px;
+            width: 300px;
+            z-index: -1;
+            background: radial-gradient(rgb(0 0 0 / 0%), rgb(0 0 0 / 0%), rgb(255 220 226 / 2%), rgb(255 204 204 / 41%));
+            position: fixed;
+            top: calc(50vh - 150px);
+            left: calc(50vw - 150px);
+            border-radius: 100%;
+            filter: blur(2px);
+            transform: scale(0);
+            display: block;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+
+
+
+        .titulo_ {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo_ .titulo {
+            color: #dcd7ff;
+            font-family: "Corinthia", serif;
+            font-weight: 400;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            margin: 60px 0px -10px 0px;
+            text-align: center;
+            text-shadow: 0px 0px 20px #c7b2ff;
+        }
+
+        .titulo_ .subtitulo {
+            color: #ffffff;
+            font-family: "Comic Neue", serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            margin: 0px 0px 40px 0px;
+            text-align: center;
+        }
+
+
+
+
+        .album {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .retrato {
+            width: 87vw;
+        }
+
+        .foto {
+            width: 100%;
+            border-radius: 18px;
+        }
+
+        .container_menu_ciclico {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .wrapper-retangulos {
+            gap: 10vw;
+            display: flex;
+            margin-left: 4.7vw;
+        }
+
+        @media (min-aspect-ratio: 1/1) {
+            .retrato {
+                width: 30vw;
+            }
+
+            .wrapper-retangulos {
+                margin-left: 34vw;
+                gap: 67vw;
+            }
+        }
+
+        .indicador {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            left: 50%;
+            bottom: 3px;
+            transform: translateX(-50%);
+        }
+
+        .bolinha-indicador {
+            width: 10px;
+            height: 10px;
+            border-radius: 1000px;
+            background-color: #ffb5b52b;
+            cursor: pointer;
+            transition: all 0.6s;
+            margin-top: -7px;
+        }
+
+        .bolinha-indicador.ativo {
+            background-color: #c62a2a;
+        }
+
+        .data {
+            color: #ffffff;
+            font-family: "Varela Round", sans-serif;
+            font-size: 14px;
+            font-weight: bolder;
+            position: relative;
+            top: -31px;
+            left: 0px;
+            z-index: 50;
+            text-shadow: -1px -1px 1px black, 1px -1px 1px black, -1px 1px 1px black, 1px 1px 1px black, -1px 0px 1px black, 1px 0px 1px black, 0px 1px 1px black, 0px -1px 1px black;
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(73deg, #b8b8b854, #ffc6d354, #b4b4b452);
+            border-radius: 0px 0px 18px 18px;
+            align-items: center;
+            height: 25px;
+        }
+
+
+
+
+        .mensagem,
+        .tempo_juntos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .mensagem p,
+        .tempo_juntos p {
+            color: #ffffff;
+            font-weight: 300;
+            font-size: 15px;
+            text-align: center;
+            width: 350px;
+            margin: 5px 0;
+        }
+
+        .mensagem p {
+            font-family: "Comic Neue", serif;
+            font-style: italic;
+        }
+
+        .tempo_juntos p {
+            font-family: "Chivo", serif;
+            font-weight: 100;
+        }
+
+        .musica {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .album .titulo,
+        .musica p,
+        .tempo_juntos .titulo,
+        .estatisticas .titulo {
+            color: #efebff;
+            font-family: "Chivo", serif;
+            font-size: 18px;
+            font-weight: 600;
+            width: 350px;
+            margin: 0 0px 10px 0px;
+        }
+
+        iframe {
+            width: 350px;
+            height: 197px;
+            border-radius: 18px;
+        }
+
+
+
+
+        .grupo_bloquinhos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .bloquinho {
+            color: #ffffff;
+            font-size: 15px;
+            font-family: "Chivo", serif;
+            font-weight: 100;
+            width: 120px;
+            height: 50px;
+            border-radius: 18px;
+            background-color: #00000040;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+
+
+        .estatisticas .titulo {
+            text-decoration: none;
+        }
+
+        .estatisticas,
+        .borda {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .linha {
+            display: flex;
+            width: 320px;
+        }
+
+        .estatisticas p {
+            color: #ffffff;
+            font-family: "Chivo", serif;
+            font-weight: 100;
+            font-size: 15px;
+            margin: 8px 0px;
+        }
+
+        .estatisticas .numero {
+            font-weight: 800;
+            margin-left: 5px;
+        }
+
+        .borda {
+            background-color: #00000040;
+            border-radius: 18px;
+            width: 350px;
+            padding: 8px 0;
+        }
+
+
+
+
+
+
+
+
+        .separacao {
+            height: 60px;
+            width: 1px;
+        }
+
+
+
+
+        .heart {
+            position: fixed;
+            top: 0;
+            font-size: 24px;
+            animation: fall 3s linear infinite;
+            user-select: none;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translate(0, -100px) rotate(-35deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(calc(100vw * 0.15), 100vh) rotate(360deg);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+
+<body id="body">
+
+
+    <div class="animacao_pulsar" id="animacao_pulsar_1"></div>
+    <div class="animacao_pulsar" id="animacao_pulsar_2"></div>
+    <div class="animacao_pulsar" id="animacao_pulsar_3"></div>
+    <div class="animacao_pulsar" id="animacao_pulsar_4"></div>
+    <div class="animacao_pulsar" id="animacao_pulsar_5"></div>
+
+
+
+
+    <div class="carregando" id="carregando">Carregando.</div>
+
+
+
+
+    <div class="container" id="container" style="display: none;">
+
+        <div class="titulo_">
+            <p class="titulo">Fulana e Fulano</p>
+            <p class="subtitulo">Momentos nossos</p>
+        </div>
+
+
+
+
+        <div class="album">
+            <div class="corpo container_menu_ciclico">
+
+                <div class="wrapper-retangulos" id="retangulos">
+                    <div class="retrato">
+                        <img class="foto" id="foto_1"></img>
+                        <div class="data" id="data_1">1 ano e 3 meses</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_2"></img>
+                        <div class="data" id="data_2">1 ano e 11 meses</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_3"></img>
+                        <div class="data" id="data_3">2 ano e 1 mes</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_4"></img>
+                        <div class="data" id="data_4">2 ano e 1 mes</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_5"></img>
+                        <div class="data" id="data_5">2 ano e 11 meses</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_6"></img>
+                        <div class="data" id="data_6">3 ano e 3 meses</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_7"></img>
+                        <div class="data" id="data_7">3 ano e 4 meses</div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_8"></img>
+                        <div class="data" id="data_8">3 ano e 5 meses</div>
+                    </div>
+
+                </div>
+                <div class="indicador" id="indicador"></div>
+            </div>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="tempo_juntos">
+            <p class="titulo">⏳ Compartilhamos momentos há:</p>
+            <div class="grupo_bloquinhos">
+                <div class="bloquinho" id="anos"></div>
+                <div class="bloquinho" id="meses"></div>
+                <div class="bloquinho" id="dias"></div>
+                <div class="bloquinho" id="horas"></div>
+                <div class="bloquinho" id="minutos"></div>
+                <div class="bloquinho" id="segundos"></div>
+            </div>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="musica">
+            <p>🎶 Nossa trilha sonora:</p>
+            <iframe id="musica" title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="mensagem">
+            <p>Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui. 
+              Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui.</p>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="estatisticas">
+            <a class="titulo" href="estatisticas.html" target="_blank">💑 Mensagens trocadas:</a>
+            <div class="borda">
+                <div class="linha">
+                    <p>- Número total de mensagens:</p>
+                    <p class="numero" id="num_total_msg">101.823</p>
+                </div>
+                <div class="linha">
+                    <p>- Dias que conversamos:</p>
+                    <p class="numero" id="num_dias_conversamos">1.241 (93%)</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+
+        var loop_animacao_pulsar;
+
+        var conteudo_carregado = false;
+        document.addEventListener("DOMContentLoaded", function () {
+            const container = document.getElementById("container");
+            const carregando = document.getElementById("carregando");
+            const imagens = document.querySelectorAll(".foto");
+            const video = document.getElementById("musica");
+
+            let carregadas = 0;
+            const totalElementos = imagens.length + 1; // +1 por causa do vídeo
+
+            function verificarCarregamento() {
+                carregadas++;
+                if (carregadas === totalElementos) {
+                    conteudo_carregado = true;
+                    animarPulsar();
+                    loop_animacao_pulsar = setInterval(animarPulsar, 6000);
+                }
+            }
+
+            imagens.forEach(img => img.onload = verificarCarregamento);  // Verifica o carregamento das imagens
+
+            video.onload = verificarCarregamento;  // Verifica o carregamento do vídeo
+
+            document.getElementById('foto_1').src = "fotos/a.jpeg";
+            document.getElementById('foto_2').src = "fotos/b.jpeg";
+            document.getElementById('foto_3').src = "fotos/c.jpeg";
+            document.getElementById('foto_4').src = "fotos/d.jpeg";
+            document.getElementById('foto_5').src = "fotos/e.jpeg";
+            document.getElementById('foto_6').src = "fotos/f.jpeg";
+            document.getElementById('foto_7').src = "fotos/g.jpeg";
+            document.getElementById('foto_8').src = "fotos/h.jpeg";
+
+            video.src = "https://www.youtube.com/embed/JsjbNtO84JU";  //NÃO é o link do video. 
+          // Vá até o video que deseja (https://www.youtube.com/watch?v=JsjbNtO84JU) e copie apenas o codigo após o '=' (JsjbNtO84JU), e cole após o 'embed/'
+        });
+
+
+
+
+        // Função para trocar o texto do "Carregando"
+        const carregando = document.getElementById("carregando");
+        const container = document.getElementById("container");
+        const body = document.getElementById("body");
+        let pontos = 0;
+        const animacaoCarregando = setInterval(() => {
+            if (!conteudo_carregado) {
+                pontos = (pontos + 1) % 4;
+                carregando.textContent = "Carregando" + ".".repeat(pontos);
+            } else {
+                carregando.textContent = "ENTRAR";
+                carregando.style.cursor = "pointer";
+                carregando.style.background = "linear-gradient(45deg, rgb(80 19 175), rgb(255 135 186))";
+                carregando.style.fontSize = "30px";
+                carregando.style.padding = "3px";
+                carregando.onclick = entrar;
+            }
+
+        }, 300);
+
+
+        function entrar() {
+            carregando.style.display = 'none';
+            container.style.display = 'block';
+            body.style.background = "linear-gradient(rgb(20 11 36), rgb(17, 8, 11))";
+            pararPulsar();
+            clearInterval(loop_animacao_pulsar);
+            criarMenuCiclico('retangulos', 'indicador', 8, 1, 97);
+            startRain();
+            updateIndex();
+        }
+
+
+
+
+
+
+
+
+        const raio_pulsar_1 = document.getElementById("animacao_pulsar_1");
+        const raio_pulsar_2 = document.getElementById("animacao_pulsar_2");
+        const raio_pulsar_3 = document.getElementById("animacao_pulsar_3");
+        const raio_pulsar_4 = document.getElementById("animacao_pulsar_4");
+        const raio_pulsar_5 = document.getElementById("animacao_pulsar_5");
+
+        function animarPulsar() {
+            setTimeout(() => {
+                raio_pulsar_1.style.transform = "scale(10)";
+                raio_pulsar_1.style.transition = "transform 5s linear";
+
+                setTimeout(() => {
+                    raio_pulsar_1.style.transition = "transform 0s";
+                    raio_pulsar_1.style.transform = "scale(0)";
+                }, 5000);
+            }, 0);
+
+            // 
+
+            setTimeout(() => {
+                raio_pulsar_2.style.transform = "scale(10)";
+                raio_pulsar_2.style.transition = "transform 5s linear";
+
+                setTimeout(() => {
+                    raio_pulsar_2.style.transition = "transform 0s";
+                    raio_pulsar_2.style.transform = "scale(0)";
+                }, 5000);
+            }, 900);
+
+            // 
+
+            setTimeout(() => {
+                raio_pulsar_3.style.transform = "scale(10)";
+                raio_pulsar_3.style.transition = "transform 5s linear";
+
+                setTimeout(() => {
+                    raio_pulsar_3.style.transition = "transform 0s";
+                    raio_pulsar_3.style.transform = "scale(0)";
+                }, 5000);
+            }, 2300);
+
+            // 
+
+            setTimeout(() => {
+                raio_pulsar_4.style.transform = "scale(10)";
+                raio_pulsar_4.style.transition = "transform 5s linear";
+
+                setTimeout(() => {
+                    raio_pulsar_4.style.transition = "transform 0s";
+                    raio_pulsar_4.style.transform = "scale(0)";
+                }, 5000);
+            }, 2900);
+
+            // 
+
+            setTimeout(() => {
+                raio_pulsar_5.style.transform = "scale(10)";
+                raio_pulsar_5.style.transition = "transform 5s linear";
+
+                setTimeout(() => {
+                    raio_pulsar_5.style.transition = "transform 0s";
+                    raio_pulsar_5.style.transform = "scale(0)";
+                }, 5000);
+            }, 4300);
+
+        }
+
+        function pararPulsar() {
+            raio_pulsar_1.style.display = "none";
+            raio_pulsar_2.style.display = "none";
+            raio_pulsar_3.style.display = "none";
+            raio_pulsar_4.style.display = "none";
+            raio_pulsar_5.style.display = "none";
+        }
+
+
+
+
+
+
+
+
+        // função de interagir com o menu ciclico, tanto da direita quanto da esquerda
+        function criarMenuCiclico(wrapperId, indicadorId, totalRetangulos, retangulosVisiveis, deslocamento_px) {
+            const wrapper = document.getElementById(wrapperId);
+            const indicador = document.getElementById(indicadorId);
+
+            let indiceAtual = 0;
+            let startX = 0;
+            let endX = 0;
+            let isDragging = false;
+
+            function criarIndicadores() {
+                for (let i = 0; i < totalRetangulos - retangulosVisiveis + 1; i++) {
+                    const bolinha = document.createElement('div');
+                    bolinha.classList.add('bolinha-indicador');
+                    if (i === 0) bolinha.classList.add('ativo');
+                    indicador.appendChild(bolinha);
+
+                    bolinha.addEventListener('click', () => {
+                        indiceAtual = i;
+                        atualizarPosicao();
+                        reiniciarTempoAvanco();
+                    });
+                }
+            }
+
+            function atualizarIndicadores() {
+                const bolinhas = indicador.querySelectorAll('.bolinha-indicador');
+                bolinhas.forEach((bolinha, index) => {
+                    bolinha.classList.toggle('ativo', index === indiceAtual);
+                });
+            }
+
+            function atualizarPosicao() {
+                wrapper.style.transition = "transform 0.6s ease";
+                wrapper.style.transform = `translateX(-${indiceAtual * deslocamento_px}vw)`;
+                atualizarIndicadores();
+            }
+
+            function avancarAutomaticamente() {
+                tempoAvanco = setTimeout(() => {
+                    indiceAtual = (indiceAtual + 1) % (totalRetangulos - retangulosVisiveis + 1);
+                    atualizarPosicao();
+                    avancarAutomaticamente();
+                }, 6000);  // 6000
+            }
+
+            function reiniciarTempoAvanco() {
+                clearTimeout(tempoAvanco);
+                avancarAutomaticamente();
+            }
+
+            // Funções de arrastar (touch e mouse)
+            function onTouchStart(event) {
+                isDragging = true;
+                startX = event.touches ? event.touches[0].clientX : event.clientX;
+            }
+
+            function onTouchMove(event) {
+                if (!isDragging) return;
+                endX = event.touches ? event.touches[0].clientX : event.clientX;
+            }
+
+            function onTouchEnd() {
+                if (!isDragging) return;
+                isDragging = false;
+                let diff = startX - endX;
+
+                if (Math.abs(diff) > 50) { // Apenas aceita gestos significativos
+                    if (diff > 0) {
+                        indiceAtual = (indiceAtual + 1) % (totalRetangulos - retangulosVisiveis + 1);
+                    } else {
+                        indiceAtual = (indiceAtual - 1 + (totalRetangulos - retangulosVisiveis + 1)) % (totalRetangulos - retangulosVisiveis + 1);
+                    }
+                    reiniciarTempoAvanco();
+                }
+                atualizarPosicao();
+            }
+
+            // Eventos para toque (mobile)
+            wrapper.addEventListener("touchstart", onTouchStart);
+            wrapper.addEventListener("touchmove", onTouchMove);
+            wrapper.addEventListener("touchend", onTouchEnd);
+
+
+            criarIndicadores();
+            avancarAutomaticamente();
+
+        }
+
+
+
+
+
+
+
+        function atualizarTempoJuntos() {
+            const inicio = new Date("2021-05-14T20:14:00"); // Data e hora do primeiro encontro
+            const agora = new Date(); // Data atual
+
+            let diferenca = agora - inicio;
+
+            const anos = Math.floor(diferenca / (365.25 * 24 * 60 * 60 * 1000));
+            diferenca -= anos * (365.25 * 24 * 60 * 60 * 1000);
+
+            const meses = Math.floor(diferenca / (30 * 24 * 60 * 60 * 1000));
+            diferenca -= meses * (30 * 24 * 60 * 60 * 1000);
+
+            const dias = Math.floor(diferenca / (24 * 60 * 60 * 1000));
+            diferenca -= dias * (24 * 60 * 60 * 1000);
+
+            const horas = Math.floor(diferenca / (60 * 60 * 1000));
+            diferenca -= horas * (60 * 60 * 1000);
+
+            const minutos = Math.floor(diferenca / (60 * 1000));
+            diferenca -= minutos * (60 * 1000);
+
+            const segundos = Math.floor(diferenca / 1000);
+
+            document.getElementById("anos").textContent = `${anos} anos`;
+            document.getElementById("meses").textContent = `${meses} meses`;
+            document.getElementById("dias").textContent = `${dias} dias`;
+            document.getElementById("horas").textContent = `${horas} horas`;
+            document.getElementById("minutos").textContent = `${minutos} minutos`;
+            document.getElementById("segundos").textContent = `${segundos} segundos`;
+
+            setTimeout(atualizarTempoJuntos, 1000);
+        }
+
+        atualizarTempoJuntos();
+
+
+
+
+
+
+
+
+
+
+
+        const timeSequence = [100, 200, 400, 400, 600, 800, 1800, 4200, 1200, 300, 500, 500, 1800, 1800, 1800, 800, 1800, 800, 300];
+        let index = 0;
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            container.appendChild(heart);
+
+            let startX = Math.random() * window.innerWidth;
+            let size = Math.random() * 20 + 15; // Tamanho aleatório entre 10px e 30px
+            let duration = Math.random() * 2 + 3;
+
+            heart.style.left = `${startX}px`;
+            heart.style.fontSize = `${size}px`;
+            heart.style.animationDuration = `${duration}s`;
+
+            // Remove o coração após a animação
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        function startRain() {
+            createHeart();
+            setTimeout(startRain, timeSequence[index]); // Pega o tempo da lista
+        }
+
+        function updateIndex() {
+            index = (index + 1) % timeSequence.length; // Muda o índice da lista a cada 2s
+            console.log(timeSequence[index]);
+            setTimeout(updateIndex, 2000);
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>
