@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossas estatisticas</title>
+    <link rel="icon" type="image/png" href="icone.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Chivo:wght@100..900&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Corinthia:wght@400;700&display=swap"
+        rel="stylesheet">
+
+
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, #10072a, #04000d);
+        }
+
+        .container {
+            z-index: 2;
+        }
+
+
+
+
+
+
+        
+
+        
+        .estatisticas .titulo,
+        .graficos .titulo {
+            color: #efebff;
+            font-family: "Chivo", serif;
+            font-size: 18px;
+            font-weight: 600;
+            width: 87vw;
+            margin: 0 0px 10px 0px;
+        }
+        
+        .estatisticas p {
+            color: #ffffff;
+            font-family: "Chivo", serif;
+            font-weight: 100;
+            font-size: 15px;
+            margin: 8px 0px;
+        }
+
+        .estatisticas .numero {
+            font-weight: 800;
+            margin-left: 5px;
+        }
+
+        .estatisticas,
+        .borda,
+        .graficos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .borda {
+            background-color: #00000063;
+            border-radius: 18px;
+            width: 87vw;
+            padding: 8px 0;
+        }
+
+        .linha {
+            display: flex;
+            text-align: left;
+            width: calc(87vw - 30px);
+        }
+
+
+
+
+        .grafico {
+            width: 87vw;
+            height: 200px;
+            border-radius: 18px;
+            background-color: #2f2f2f82;
+            margin: 0 0 20px 0;
+        }
+
+
+
+
+        .separacao {
+            height: 60px;
+            width: 1px;
+        }
+
+        .separacaozinha {
+            height: 30px;
+            width: 1px;
+        }
+
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="estatisticas">
+            <p class="titulo">💑 Mensagens trocadas:</p>
+            <div class="borda">
+                <div class="linha">
+                    <p title="Mensagens incluindo fotos, posts e audios">- Número total de mensagens:</p>
+                    <p class="numero" id="num_total_msg">101.823</p>
+                </div>
+                <div class="linha">
+                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Fulano:</p>
+                    <p class="numero" id="num_msg_Fulano">52.883</p>
+                </div>
+                <div class="linha">
+                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Ciclana:</p>
+                    <p class="numero" id="num_msg_Ciclana">48.940</p>
+                </div>
+                <div class="linha">
+                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Fulano:</p>
+                    <p class="numero" id="num_msg_Fulano">1</p>
+                </div>
+                <div class="linha">
+                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Ciclana:</p>
+                    <p class="numero" id="num_msg_Ciclana">83</p>
+                </div>
+                <div class="linha">
+                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de Fulano:</p>
+                    <p class="numero" id="media_Fulano">22.4</p>
+                </div>
+                <div class="linha">
+                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de Ciclana:</p>
+                    <p class="numero" id="media_Ciclana">20.1</p>
+                </div>
+
+                <div class="separacaozinha"></div>
+
+                <div class="linha">
+                    <p title="Dias sem conversar em nenhuma rede social">- Dias sem conversar:</p>
+                    <p class="numero" id="num_dias_s_conversar">138</p>
+                </div>
+                <div class="linha">
+                    <p>- Dias que conversamos:</p>
+                    <p class="numero" id="num_dias_conversamos">1.241 (93%)</p>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+
+
+
+        <div class="graficos">
+            <p class="titulo">✨ Estatisticas:</p>
+            <div class="grafico" id="grafico_pizza_msg"></div>
+            <div class="grafico" id="grafico_info_zap"></div>
+            <div class="grafico" id="grafico_info_ig"></div>
+            <div class="grafico" id="grafico_msg_p_mes"></div>
+            <div class="grafico" id="grafico_msg_p_dia"></div>
+            <div class="grafico" id="grafico_"></div>
+            <div class="grafico" id="grafico_2"></div>
+            <div class="grafico" id="grafico_3"></div>
+        </div>
+
+
+
+
+        <div class="separacao"></div>
+
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+
+      // não é uma página tão fofa, mas é legalzinho ver todas as estatisticas e comparações de envio de mensagem de ambos, decorrente de anos de conversa.
+
+      // no whatsapp é possivel exportar toda a conversa em txt. e com isso pode fazer um codigo em JS separado, que analise e separe a conversa em algumas estatisticas. 
+      // no instagram também tem como, mas é um passo a passo diferente. dá para exportar uma conversa inteira.
+      // Aqui abaixo eu dou uma viajada e planejada de oque fazer em breve pra finalizar a página.
+      
+
+
+
+
+
+        // <div id="grafico_pizza_msg">grafico de pizza que mostra dentre as 101 mil msg, as do zap e as do instagram</div>
+        // <div id="grafico_info_zap">grafico de barra horizontal que mostra o num de msg de texto enviada por mim,
+        //     numero de msg de texto envaiada pelaCiclana, numero de foto enviada por mim e num de foto enviada pela
+        //     Ciclana, do zap</div>
+        // <div id="grafico_info_ig">grafico de barra horizontal que mostra o num de msg de texto envaida por mim, o
+        //      num de msg de texto enviada pelaCiclana, o numero de post enviado por mim, o num de post enviado pela
+        //     Ciclana, o numero de post reagidos por mim, o num de post reagidos pelaCiclana. no instagram</div>
+        // <div id="grafico_msg_p_mes">grafico de barra vertical que mostra o envio de mensagens por mes</div>
+        // <div id="grafico_msg_p_dia">grafico de area/barra que mostra o envio de mensagens por dia</div>
+        // <div id="grafico_msgs_mais_repetidas">um grafico de barra horizontal com as mensagens (mensagens exatamente iguais, diferenciando apenas maiusculas e minusculas, acentos e espaços e pontos) mais repetidas ao longo das conversas (tanto do zap quanto do insta (fazer um codigo q identiifca cada msg do insta)</div>
+        // <div id="grafico_palavras_mais_repetidas">um grafico de barra horizontal com as palavras mais ditas nas mensagens (separadamente entre as mensagens minhas e mensagens da Ciclana(um ranking pra cada um), (tanto do insta quanto do zap), em ordem decrescente</div>
+
+        // Em todos os graficos, tudo que diz respeito a mim é representado em uma cor, e da Ciclanaem outra. e do zap uma car e do insta em outra, e tudo junto em outra.
+        
+
+
+        // nao armazenar o txt da conversa no servidor!!!
+        // ao inves disso tirar todas as informações de lá e armazenar em JSON no server.
+        // variavel que armazena numero de msg de texto minhas, no ZAP
+        // variavel que armazena numero de msg de texto daCiclana, no ZAP
+        // variavel que armazena numero de fotos enviadas minha, no ZAP
+        // variavel que armazena numero de fotos enviadas daCiclana, no ZAP
+        // variavel que armazena numero de audios enviados meu, no ZAP
+        // variavel que armazena numero de audios enviados daCiclana, no ZAP
+
+        // variavel que armazena numero de msg de texto enviadas por mim, no Instagram
+        // variavel que armazena numero de msg de texto enviadas pelaCiclana, no Instagram
+        // variavel que armazena numero de Post enviadas por mim, no Instagram
+        // variavel que armazena numero de Post enviadas pelaCiclana, no Instagram
+        // variavel que armazena numero de publcações reagidas por mim, no Instagram
+        // variavel que armazena numero de publcações reagidas pelaCiclana, no Instagram
+
+        // variavel que soma o numero de mensagens totais do zap
+        // variavel que soma o numero de mensagens totais do insatgram
+        // variavel que soma o numero de mensagens de texto do insta e as mensagens de texto do zap.
+
+        // criar um codigo que recebe todas as msg do zap, e do instagram, e salva em uma lista [['23/04/2021 11:45', 'whatsapp', 'Fulano', 'a mensagem em si'], []...]   onde o tempo ali deve estar formatado em formato 24h (diferente das do zap qé fala 11 da manha e 11 da noite). Juntando todas as msg do zap e do instagram, ele deve ordenar em ordem cronológica, pela data e horario.  para assim posteriormente eu poder analizar mais facil a partir dessa lista. Salvar essa lista em um arquivo txt
+        // criar um novo codigo JS que analisa o JSON de envio do instagram, pra tirar essas informações.
+        // e também... o codigo deve ver pelo timestamp_ms a data da mensagem, e converter para data em dia/mes/ano,  assim eu posso somar o numero de mensagens enviadas pelo insta e zap, no grafico de mensagens por dia.
+        // e, exibir separadamente o numero de mensagens enviadas pelo zap e pelo instagram, no grafico de envio por mes. (pode ser o "Column comparasion" ou "Stacked column" ou "Fixed placement columns")
+        
+        // com base na nova lista de numero de mensagens por dia, unificados. contabilizar denovo qunatdos dias sem conversar e quantos dias conversamos, e também a porcentagem de dias que conversamos, em relação ao numero de dias totais desde a primeira msg.
+
+        // variavel que armazena numero de dias sem conversar
+        // variavel que armazena numero de dias que conversamos
+        // variavel que armazena numero de dias desde a primeira msg ("2021-05-14T20:14:00")
+
+        // TITULOS DOS GRAFICOS
+        // grafico_pizza_msg : 'Mensageiros'
+        // grafico_info_zap : 'Whatsapp'
+        // grafico_info_ig : 'Instagram'
+        // grafico_msg_p_mes : 'Envio de mensagens por mês'
+        // grafico_msg_p_dia : 'Envio de mensagens por dia'
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
