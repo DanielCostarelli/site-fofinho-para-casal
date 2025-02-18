@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,7 +6,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momentos nossos</title>
+    <title>Nossos momentos</title>
     <link rel="icon" type="image/png" href="icone.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -138,7 +139,7 @@
         .indicador {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             position: relative;
             left: 50%;
             bottom: 3px;
@@ -146,8 +147,8 @@
         }
 
         .bolinha-indicador {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             border-radius: 1000px;
             background-color: #ffb5b52b;
             cursor: pointer;
@@ -354,8 +355,8 @@
     <div class="container" id="container" style="display: none;">
 
         <div class="titulo_">
-            <p class="titulo">Fulana e Fulano</p>
-            <p class="subtitulo">Momentos nossos</p>
+            <p class="titulo">Tatiane e Daniel</p>
+            <p class="subtitulo">Nossos momentos</p>
         </div>
 
 
@@ -367,42 +368,72 @@
                 <div class="wrapper-retangulos" id="retangulos">
                     <div class="retrato">
                         <img class="foto" id="foto_1"></img>
-                        <div class="data" id="data_1">1 ano e 3 meses</div>
+                        <div class="data" id="data_1"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_2"></img>
-                        <div class="data" id="data_2">1 ano e 11 meses</div>
+                        <div class="data" id="data_2"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_3"></img>
-                        <div class="data" id="data_3">2 ano e 1 mes</div>
+                        <div class="data" id="data_3"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_4"></img>
-                        <div class="data" id="data_4">2 ano e 1 mes</div>
+                        <div class="data" id="data_4"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_5"></img>
-                        <div class="data" id="data_5">2 ano e 11 meses</div>
+                        <div class="data" id="data_5"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_6"></img>
-                        <div class="data" id="data_6">3 ano e 3 meses</div>
+                        <div class="data" id="data_6"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_7"></img>
-                        <div class="data" id="data_7">3 ano e 4 meses</div>
+                        <div class="data" id="data_7"></div>
                     </div>
 
                     <div class="retrato">
                         <img class="foto" id="foto_8"></img>
-                        <div class="data" id="data_8">3 ano e 5 meses</div>
+                        <div class="data" id="data_8"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_9"></img>
+                        <div class="data" id="data_9"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_10"></img>
+                        <div class="data" id="data_10"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_11"></img>
+                        <div class="data" id="data_11"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_12"></img>
+                        <div class="data" id="data_12"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_13"></img>
+                        <div class="data" id="data_13"></div>
+                    </div>
+
+                    <div class="retrato">
+                        <img class="foto" id="foto_14"></img>
+                        <div class="data" id="data_14"></div>
                     </div>
 
                 </div>
@@ -455,8 +486,8 @@
 
 
         <div class="mensagem">
-            <p>Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui. 
-              Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui. Uma mensagem beeem fofa e amorosa aqui.</p>
+            <p>Você é meu pensamento constante, a razão do meu sorriso. 
+            Estar com você é o meu lugar de paz, onde tudo faz sentido. Te amo muito!!! ❤️❤️</p>
         </div>
 
 
@@ -468,15 +499,16 @@
 
 
         <div class="estatisticas">
-            <a class="titulo" href="estatisticas.html" target="_blank">💑 Mensagens trocadas:</a>
+            <a class="titulo" href="https://monitoramento.x10.bz/cute/estatisticas.html" target="_blank">💑 Mensagens
+                trocadas:</a>
             <div class="borda">
                 <div class="linha">
                     <p>- Número total de mensagens:</p>
-                    <p class="numero" id="num_total_msg">101.823</p>
+                    <p class="numero" id="num_total_msg"></p>
                 </div>
                 <div class="linha">
                     <p>- Dias que conversamos:</p>
-                    <p class="numero" id="num_dias_conversamos">1.241 (93%)</p>
+                    <p class="numero" id="num_dias_conversamos"></p>
                 </div>
             </div>
         </div>
@@ -491,13 +523,188 @@
 
 
 
-
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script src="js/sendmail.js"></script>
 
 
 
     <script>
 
+
+
+
+    // Função para garantir que todas as imagens com a classe .foto sejam carregadas
+    function forcarCarregamentoImagens() {
+    const imagens = document.querySelectorAll('.foto');
+    imagens.forEach(img => {
+    const src = img.getAttribute('src');
+    const imgClone = new Image();
+    imgClone.src = src; // Força o carregamento da imagem
+    });
+    }
+    
+    // Chama a função assim que a página for carregada
+    document.addEventListener('DOMContentLoaded', forcarCarregamentoImagens);
+
+
+
+
+
+
+        // var proporcao_numero_msg_redes_sociais;
+        var mensagens_whatsapp;
+        var mensagens_instagram;
+        // var media_de_caracteres_por_msg;
+        var dias_que_conversamos;
+        // var dias_sem_conversar;
+        // var msg_por_mes;
+        // var msg_por_dia;
+        // var msg_mais_repetidas;
+        // var msg_mais_repetidas__maiores;
+        // var palavras_mais_repetidas;
+        // var palavras_mais_repetidas__maiores;
+        // var variacoes_de_amor_mais_repetidos;
+        // var inicio_de_conversa_mais_repetidos;
+        // var nomes_mais_falados;
+        // var palavroes_mais_repetidos;
+        // var elogios_mais_repetidos;
+
+        function recebe_estatisticas() {
+            return new Promise((resolve) => {
+                fetch('retorna_ao_site.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("data: ", data);
+
+                        mensagens_whatsapp = data.mensagens_whatsapp;
+                        mensagens_instagram = data.mensagens_instagram;
+                        dias_que_conversamos = data.dias_que_conversamos;
+
+                        var numero_total_de_mensagens = mensagens_whatsapp.texto_daniel + mensagens_whatsapp.texto_tatiane +
+                            mensagens_whatsapp.foto_video_daniel + mensagens_whatsapp.foto_video_tatiane + mensagens_whatsapp.audio_daniel +
+                            mensagens_whatsapp.audio_tatiane + mensagens_whatsapp.figurinha_daniel + mensagens_whatsapp.figurinha_tatiane +
+                            mensagens_instagram.texto_daniel + mensagens_instagram.texto_tatiane + mensagens_instagram.post_daniel + mensagens_instagram.post_tatiane;
+
+                        document.getElementById('num_total_msg').textContent = formata_numero(numero_total_de_mensagens);
+                        document.getElementById('num_dias_conversamos').textContent = `${formata_numero(dias_que_conversamos.numero)} (${dias_que_conversamos.porcentagem}%)`;
+
+                        resolve(); // Marca a promessa como resolvida quando os dados carregarem
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter dados:', error);
+                        // resolve(); // Mesmo se der erro, não trava o loading
+                    });
+            });
+        }
+
+
+
+
+        window.onload = function () {
+            // recebe_estatisticas();
+
+            // let fastInterval = setInterval(recebe_estatisticas, 500);
+            // tenta receber os dados a cada 500ms até que recebe, depois para.
+            // incluir o carregamento desses dados no tempo de loading.
+
+
+        };
+
+
+
+
+        function formata_numero(numero) {
+            var numero_str = String(numero);
+            var resultado = "";
+            var contador = 0;
+
+            // Percorre a string de trás para frente
+            for (let i = numero_str.length - 1; i >= 0; i--) {
+                resultado = numero_str[i] + resultado;
+                contador++;
+
+                // Adiciona o ponto a cada 3 dígitos, mas não no começo
+                if (contador % 3 === 0 && i !== 0) {
+                    resultado = "." + resultado;
+                }
+            }
+            return resultado;
+        }
+
+
+
+
+
+
+        function determina_o_tempo_juntos_da_foto(obj, dataReferencia) {
+            let resultado = {};
+            let [diaRef, mesRef, anoRef] = dataReferencia.split("/").map(Number);
+            let dataRef = new Date(anoRef, mesRef - 1, diaRef);
+
+            for (let chave in obj) {
+                let [dia, mes, ano] = obj[chave].split("/").map(Number);
+                let dataFoto = new Date(ano, mes - 1, dia);
+
+                let anos = dataFoto.getFullYear() - dataRef.getFullYear();
+                let meses = dataFoto.getMonth() - dataRef.getMonth();
+                let dias = dataFoto.getDate() - dataRef.getDate();
+
+                // Ajusta se os meses forem negativos
+                if (meses < 0 || (meses === 0 && dias < 0)) {
+                    anos--;
+                    meses += 12;
+                }
+
+                // Ajusta se os dias forem negativos
+                if (dias < 0) {
+                    meses--;
+                }
+
+                let textoAnos = anos === 1 ? "1 ano" : anos > 1 ? `${anos} anos` : "";
+                let textoMeses = meses === 1 ? "1 mês" : meses > 1 ? `${meses} meses` : "";
+
+                resultado[chave] = textoAnos && textoMeses ? `${textoAnos} e ${textoMeses}` : textoAnos || textoMeses;
+            }
+
+            return resultado;
+        }
+
+
+
+
+
+
+
+
+        var data_das_fotos = {
+    "foto 1": "07/01/2025",
+    "foto 2": "07/01/2025",
+    "foto 3": "30/03/2024",
+    "foto 4": "30/03/2024",
+    "foto 5": "20/11/2022",
+    "foto 6": "24/10/2022",
+    "foto 7": "12/03/2022",
+    "foto 8": "21/12/2021",
+    "foto 9": "21/09/2021",
+    "foto 10": "12/10/2021",
+    "foto 11": "12/10/2021",
+    "foto 12": "19/09/2021",
+    "foto 13": "07/08/2021",
+    "foto 14": "12/07/2021"
+};
+
+        var tempo_juntos = determina_o_tempo_juntos_da_foto(data_das_fotos, "14/05/2021");
+
+
+
+
+
+
         var loop_animacao_pulsar;
+
+
+
+
 
         var conteudo_carregado = false;
         document.addEventListener("DOMContentLoaded", function () {
@@ -506,34 +713,48 @@
             const imagens = document.querySelectorAll(".foto");
             const video = document.getElementById("musica");
 
-            let carregadas = 0;
-            const totalElementos = imagens.length + 1; // +1 por causa do vídeo
+            let promessas = [];
 
-            function verificarCarregamento() {
-                carregadas++;
-                if (carregadas === totalElementos) {
-                    conteudo_carregado = true;
-                    animarPulsar();
-                    loop_animacao_pulsar = setInterval(animarPulsar, 6000);
-                }
+            // Carregamento das imagens
+            imagens.forEach((img, index) => {
+                let promessa = new Promise((resolve) => {
+                    img.onload = resolve;
+                    // img.onerror = resolve; // Se der erro, ainda marca como carregado para evitar travamento
+                });
+                promessas.push(promessa);
+            });
+
+            // Carregamento do vídeo
+            let promessaVideo = new Promise((resolve) => {
+                video.onload = resolve;
+                // video.onerror = resolve; // Se der erro, ainda marca como carregado
+            });
+            promessas.push(promessaVideo);
+
+            // Carregamento dos dados do PHP
+            let promessaDados = recebe_estatisticas();
+            promessas.push(promessaDados);
+
+            // Aguarda todas as promessas antes de finalizar o carregamento
+            Promise.all(promessas).then(() => {
+                conteudo_carregado = true;
+                animarPulsar();
+                loop_animacao_pulsar = setInterval(animarPulsar, 6000);
+            });
+
+            // Define as imagens e as datas
+            for (let k = 0; k < imagens.length; k++) {
+                let fotoId = `foto_${k + 1}`;
+                let chave = `foto ${k + 1}`;
+                document.getElementById(fotoId).src = `https://monitoramento.x10.bz/cute/fotos/foto ${k + 1}.jpg`;
+                document.getElementById(`data_${k + 1}`).textContent = tempo_juntos[chave];
             }
 
-            imagens.forEach(img => img.onload = verificarCarregamento);  // Verifica o carregamento das imagens
-
-            video.onload = verificarCarregamento;  // Verifica o carregamento do vídeo
-
-            document.getElementById('foto_1').src = "fotos/a.jpeg";
-            document.getElementById('foto_2').src = "fotos/b.jpeg";
-            document.getElementById('foto_3').src = "fotos/c.jpeg";
-            document.getElementById('foto_4').src = "fotos/d.jpeg";
-            document.getElementById('foto_5').src = "fotos/e.jpeg";
-            document.getElementById('foto_6').src = "fotos/f.jpeg";
-            document.getElementById('foto_7').src = "fotos/g.jpeg";
-            document.getElementById('foto_8').src = "fotos/h.jpeg";
-
-            video.src = "https://www.youtube.com/embed/JsjbNtO84JU";  //NÃO é o link do video. 
-          // Vá até o video que deseja (https://www.youtube.com/watch?v=JsjbNtO84JU) e copie apenas o codigo após o '=' (JsjbNtO84JU), e cole após o 'embed/'
+            video.src = "https://www.youtube.com/embed/JsjbNtO84JU";
         });
+
+
+
 
 
 
@@ -559,16 +780,30 @@
         }, 300);
 
 
+
+
+
+
+
+
         function entrar() {
+            const imagens = document.querySelectorAll(".foto");
+
             carregando.style.display = 'none';
             container.style.display = 'block';
             body.style.background = "linear-gradient(rgb(20 11 36), rgb(17, 8, 11))";
             pararPulsar();
             clearInterval(loop_animacao_pulsar);
-            criarMenuCiclico('retangulos', 'indicador', 8, 1, 97);
+            criarMenuCiclico('retangulos', 'indicador', imagens.length, 1, 97);
             startRain();
             updateIndex();
+            envia_email();
         }
+
+
+
+
+
 
 
 
@@ -659,6 +894,10 @@
 
 
 
+
+
+
+
         // função de interagir com o menu ciclico, tanto da direita quanto da esquerda
         function criarMenuCiclico(wrapperId, indicadorId, totalRetangulos, retangulosVisiveis, deslocamento_px) {
             const wrapper = document.getElementById(wrapperId);
@@ -692,7 +931,7 @@
             }
 
             function atualizarPosicao() {
-                wrapper.style.transition = "transform 0.6s ease";
+                wrapper.style.transition = "transform 0.3s ease";
                 wrapper.style.transform = `translateX(-${indiceAtual * deslocamento_px}vw)`;
                 atualizarIndicadores();
             }
@@ -755,7 +994,8 @@
 
 
         function atualizarTempoJuntos() {
-            const inicio = new Date("2021-05-14T20:14:00"); // Data e hora do primeiro encontro
+            const inicio = new Date("2021-05-14T20:14:00"); // Data e hora que fomos no d'talia pela primeira vez
+            // const inicio = new Date("2021-06-24T20:19:00"); // Data do pedido em namoro
             const agora = new Date(); // Data atual
 
             let diferenca = agora - inicio;
@@ -829,11 +1069,103 @@
 
         function updateIndex() {
             index = (index + 1) % timeSequence.length; // Muda o índice da lista a cada 2s
-            console.log(timeSequence[index]);
             setTimeout(updateIndex, 2000);
         }
 
 
+
+
+
+
+
+
+        function envia_email() {
+            // DETECTA DISPOSITIVO:
+            var modelo_do_dispositivo_1;
+            var modelo_do_dispositivo_2;
+            var modelo_do_dispositivo_3;
+
+            if (navigator.userAgentData) {
+                navigator.userAgentData.getHighEntropyValues(["model"])
+                    .then(data => {
+                        modelo_do_dispositivo_1 = data.model;
+                        // console.log("Modelo do dispositivo:", modelo_do_dispositivo);
+                    })
+                    .catch(err => console.log("Erro ao obter modelo:", err));
+            } else {
+                console.log("userAgentData não suportado, use userAgent.");
+            }
+
+            function getDeviceModel() {
+                let userAgent = navigator.userAgent;
+                let match = userAgent.match(/\(([^)]+)\)/); // Captura tudo dentro dos parênteses
+                if (match) {
+                    return match[1]; // Retorna apenas o trecho relevante
+                }
+                return "Modelo desconhecido";
+            }
+            modelo_do_dispositivo_2 = getDeviceModel();
+
+            modelo_do_dispositivo_3 = navigator.userAgent;
+
+
+
+
+
+
+
+            // DETERMINA A DATA E HORA:
+            function getFormattedDateTime() {
+                let now = new Date();
+                
+                let pad = num => String(num).padStart(2, '0'); // Garante 2 dígitos
+                let day = pad(now.getDate());
+                let month = pad(now.getMonth() + 1); // Janeiro = 0
+                let year = now.getFullYear();
+                let hours = pad(now.getHours());
+                let minutes = pad(now.getMinutes());
+                let seconds = pad(now.getSeconds());
+
+                return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+            }
+            var data_hora = getFormattedDateTime();
+
+
+
+
+
+
+
+
+ 
+            // ENVIAR EMAIL:
+            var assunto = "Acessaram a página cute-cute";
+            
+            var corpoEmail = `
+            <strong style="font-size: 18px;">Alguém clicou em ENTRAR na página do meu amor.</strong><br>
+            Modelo do dispositivo que acessou:<br><br>
+            ${modelo_do_dispositivo_1}
+            <br>
+            ${modelo_do_dispositivo_2}
+            <br>
+            ${modelo_do_dispositivo_3}
+            <br>
+            As ${data_hora}.<br>
+            <br><br>
+                    `;
+            console.log(corpoEmail);
+            
+            Email.send({
+                Host: "smtp.elasticemail.com",
+                Username: "dan223ctll@gmail.com",
+                Password: "8EE9DBADA5831BE69C1BF2FBC6BC52FCC47E",
+                To: 'dan223ctll@gmail.com',
+                From: "dan223ctll@gmail.com",
+                Subject: assunto,
+                Body: corpoEmail
+            })
+
+        }
 
 
 
