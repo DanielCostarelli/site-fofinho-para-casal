@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -17,6 +18,13 @@
 
 
     <style>
+        .highcharts-background {
+            fill: #ffffffea;
+        }
+
+
+
+
         body {
             background: linear-gradient(to bottom, #10072a, #04000d);
         }
@@ -30,9 +38,9 @@
 
 
 
-        
 
-        
+
+
         .estatisticas .titulo,
         .graficos .titulo {
             color: #efebff;
@@ -42,7 +50,7 @@
             width: 87vw;
             margin: 0 0px 10px 0px;
         }
-        
+
         .estatisticas p {
             color: #ffffff;
             font-family: "Chivo", serif;
@@ -64,7 +72,7 @@
             align-items: center;
             text-align: center;
         }
-        
+
         .borda {
             background-color: #00000063;
             border-radius: 18px;
@@ -82,11 +90,11 @@
 
 
         .grafico {
-            width: 87vw;
-            height: 200px;
+            width: 97vw;
+            height: 800px;
             border-radius: 18px;
             background-color: #2f2f2f82;
-            margin: 0 0 20px 0;
+            margin: 0 0 40px 0;
         }
 
 
@@ -105,6 +113,13 @@
 
 
 
+
+        @media (min-aspect-ratio: 1/1) {
+            .grafico {
+                height: 600px;
+                width: 87vw;
+            }
+        }
     </style>
 </head>
 
@@ -122,42 +137,44 @@
             <div class="borda">
                 <div class="linha">
                     <p title="Mensagens incluindo fotos, posts e audios">- Número total de mensagens:</p>
-                    <p class="numero" id="num_total_msg">101.823</p>
+                    <p class="numero" id="num_total_msg"></p>
                 </div>
                 <div class="linha">
-                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Fulano:</p>
-                    <p class="numero" id="num_msg_Fulano">52.883</p>
+                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Daniel:</p>
+                    <p class="numero" id="num_msg_daniel"></p>
                 </div>
                 <div class="linha">
-                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Ciclana:</p>
-                    <p class="numero" id="num_msg_Ciclana">48.940</p>
+                    <p title="Mensagens incluindo fotos, posts e audios">- Mensagens de Tatiane:</p>
+                    <p class="numero" id="num_msg_tatiane"></p>
                 </div>
                 <div class="linha">
-                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Fulano:</p>
-                    <p class="numero" id="num_msg_Fulano">1</p>
+                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Daniel:</p>
+                    <p class="numero" id="num_audio_daniel"></p>
                 </div>
                 <div class="linha">
-                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Ciclana:</p>
-                    <p class="numero" id="num_msg_Ciclana">83</p>
+                    <p title="Apenas incluso audios do whatsapp">- Audios enviados por Tatiane:</p>
+                    <p class="numero" id="num_audio_tatiane"></p>
                 </div>
                 <div class="linha">
-                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de Fulano:</p>
-                    <p class="numero" id="media_Fulano">22.4</p>
+                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de
+                        Daniel:</p>
+                    <p class="numero" id="media_daniel"></p>
                 </div>
                 <div class="linha">
-                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de Ciclana:</p>
-                    <p class="numero" id="media_Ciclana">20.1</p>
+                    <p title="Média de caracteres por mensagem do Whatsapp e Instagram">- Média caracteres/msg de
+                        Tatiane:</p>
+                    <p class="numero" id="media_tati"></p>
                 </div>
 
                 <div class="separacaozinha"></div>
 
                 <div class="linha">
                     <p title="Dias sem conversar em nenhuma rede social">- Dias sem conversar:</p>
-                    <p class="numero" id="num_dias_s_conversar">138</p>
+                    <p class="numero" id="num_dias_s_conversar"></p>
                 </div>
                 <div class="linha">
                     <p>- Dias que conversamos:</p>
-                    <p class="numero" id="num_dias_conversamos">1.241 (93%)</p>
+                    <p class="numero" id="num_dias_conversamos"></p>
                 </div>
             </div>
         </div>
@@ -177,9 +194,13 @@
             <div class="grafico" id="grafico_info_ig"></div>
             <div class="grafico" id="grafico_msg_p_mes"></div>
             <div class="grafico" id="grafico_msg_p_dia"></div>
-            <div class="grafico" id="grafico_"></div>
-            <div class="grafico" id="grafico_2"></div>
-            <div class="grafico" id="grafico_3"></div>
+            <div class="grafico" id="grafico_msgs_mais_repetidas"></div>
+            <div class="grafico" id="grafico_palavras_mais_repetidas"></div>
+            <div class="grafico" id="grafico_variacoes_de_amor"></div>
+            <div class="grafico" id="grafico_iniciando_conversa"></div>
+            <div class="grafico" id="grafico_nomes_mais_falados"></div>
+            <div class="grafico" id="grafico_palavroes_mais_falados"></div>
+            <div class="grafico" id="grafico_elogios_mais_ditos"></div>
         </div>
 
 
@@ -192,76 +213,1004 @@
 
 
 
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
+
 
 
 
 
     <script>
 
-      // não é uma página tão fofa, mas é legalzinho ver todas as estatisticas e comparações de envio de mensagem de ambos, decorrente de anos de conversa.
 
-      // no whatsapp é possivel exportar toda a conversa em txt. e com isso pode fazer um codigo em JS separado, que analise e separe a conversa em algumas estatisticas. 
-      // no instagram também tem como, mas é um passo a passo diferente. dá para exportar uma conversa inteira.
-      // Aqui abaixo eu dou uma viajada e planejada de oque fazer em breve pra finalizar a página.
-      
+        var proporcao_numero_msg_redes_sociais;
+        var mensagens_whatsapp;
+        var mensagens_instagram;
+        var media_de_caracteres_por_msg;
+        var dias_que_conversamos;
+        var dias_sem_conversar;
+        var msg_por_mes;
+        var msg_por_dia;
+        var msg_mais_repetidas;
+        // var msg_mais_repetidas__maiores;
+        var palavras_mais_repetidas;
+        // var palavras_mais_repetidas__maiores;
+        var variacoes_de_amor_mais_repetidos;
+        var inicio_de_conversa_mais_repetidos;
+        var nomes_mais_falados;
+        var palavroes_mais_repetidos;
+        var elogios_mais_repetidos;
+
+        function importa_estatisticas() {
+            return new Promise((resolve) => {
+                fetch('retorna_ao_site_estatisticas.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("data: ", data);
+
+                        proporcao_numero_msg_redes_sociais = data.proporcao_numero_msg_redes_sociais;
+                        mensagens_whatsapp = data.mensagens_whatsapp;
+                        mensagens_instagram = data.mensagens_instagram;
+                        media_de_caracteres_por_msg = data.media_de_caracteres_por_msg;
+                        dias_que_conversamos = data.dias_que_conversamos;
+                        dias_sem_conversar = data.dias_sem_conversar;
+                        msg_por_mes = data.msg_por_mes;
+                        msg_por_dia = data.msg_por_dia;
+                        msg_mais_repetidas = data.msg_mais_repetidas__maiores;
+                        palavras_mais_repetidas = data.palavras_mais_repetidas__maiores;
+                        variacoes_de_amor_mais_repetidos = data.variacoes_de_amor_mais_repetidos;
+                        inicio_de_conversa_mais_repetidos = data.inicio_de_conversa_mais_repetidos;
+                        nomes_mais_falados = data.nomes_mais_falados;
+                        palavroes_mais_repetidos = data.palavroes_mais_repetidos;
+                        elogios_mais_repetidos = data.elogios_mais_repetidos;
+
+
+
+                        document.getElementById('num_total_msg').textContent = formata_numero(proporcao_numero_msg_redes_sociais.whatsapp.soma + mensagens_instagram.texto_daniel + mensagens_instagram.texto_tatiane + mensagens_instagram.post_daniel + mensagens_instagram.post_tatiane);
+                        document.getElementById('num_msg_daniel').textContent = formata_numero(proporcao_numero_msg_redes_sociais.whatsapp.daniel + mensagens_instagram.texto_daniel + mensagens_instagram.post_daniel);
+                        document.getElementById('num_msg_tatiane').textContent = formata_numero(proporcao_numero_msg_redes_sociais.whatsapp.tatiane + mensagens_instagram.texto_tatiane + mensagens_instagram.post_tatiane);
+                        document.getElementById('num_audio_daniel').textContent = formata_numero(mensagens_whatsapp.audio_daniel);
+                        document.getElementById('num_audio_tatiane').textContent = formata_numero(mensagens_whatsapp.audio_tatiane);
+                        document.getElementById('media_daniel').textContent = media_de_caracteres_por_msg.daniel;
+                        document.getElementById('media_tati').textContent = media_de_caracteres_por_msg.tatiane;
+                        document.getElementById('num_dias_s_conversar').textContent = dias_sem_conversar;
+                        document.getElementById('num_dias_conversamos').textContent = `${dias_que_conversamos.numero} (${dias_que_conversamos.porcentagem}%)`;
 
 
 
 
 
-        // <div id="grafico_pizza_msg">grafico de pizza que mostra dentre as 101 mil msg, as do zap e as do instagram</div>
-        // <div id="grafico_info_zap">grafico de barra horizontal que mostra o num de msg de texto enviada por mim,
-        //     numero de msg de texto envaiada pelaCiclana, numero de foto enviada por mim e num de foto enviada pela
-        //     Ciclana, do zap</div>
-        // <div id="grafico_info_ig">grafico de barra horizontal que mostra o num de msg de texto envaida por mim, o
-        //      num de msg de texto enviada pelaCiclana, o numero de post enviado por mim, o num de post enviado pela
-        //     Ciclana, o numero de post reagidos por mim, o num de post reagidos pelaCiclana. no instagram</div>
-        // <div id="grafico_msg_p_mes">grafico de barra vertical que mostra o envio de mensagens por mes</div>
-        // <div id="grafico_msg_p_dia">grafico de area/barra que mostra o envio de mensagens por dia</div>
-        // <div id="grafico_msgs_mais_repetidas">um grafico de barra horizontal com as mensagens (mensagens exatamente iguais, diferenciando apenas maiusculas e minusculas, acentos e espaços e pontos) mais repetidas ao longo das conversas (tanto do zap quanto do insta (fazer um codigo q identiifca cada msg do insta)</div>
-        // <div id="grafico_palavras_mais_repetidas">um grafico de barra horizontal com as palavras mais ditas nas mensagens (separadamente entre as mensagens minhas e mensagens da Ciclana(um ranking pra cada um), (tanto do insta quanto do zap), em ordem decrescente</div>
-
-        // Em todos os graficos, tudo que diz respeito a mim é representado em uma cor, e da Ciclanaem outra. e do zap uma car e do insta em outra, e tudo junto em outra.
-        
 
 
-        // nao armazenar o txt da conversa no servidor!!!
-        // ao inves disso tirar todas as informações de lá e armazenar em JSON no server.
-        // variavel que armazena numero de msg de texto minhas, no ZAP
-        // variavel que armazena numero de msg de texto daCiclana, no ZAP
-        // variavel que armazena numero de fotos enviadas minha, no ZAP
-        // variavel que armazena numero de fotos enviadas daCiclana, no ZAP
-        // variavel que armazena numero de audios enviados meu, no ZAP
-        // variavel que armazena numero de audios enviados daCiclana, no ZAP
 
-        // variavel que armazena numero de msg de texto enviadas por mim, no Instagram
-        // variavel que armazena numero de msg de texto enviadas pelaCiclana, no Instagram
-        // variavel que armazena numero de Post enviadas por mim, no Instagram
-        // variavel que armazena numero de Post enviadas pelaCiclana, no Instagram
-        // variavel que armazena numero de publcações reagidas por mim, no Instagram
-        // variavel que armazena numero de publcações reagidas pelaCiclana, no Instagram
+                        grafico__proporcao_mensageiros(proporcao_numero_msg_redes_sociais.whatsapp.soma, proporcao_numero_msg_redes_sociais.instagram.soma);
 
-        // variavel que soma o numero de mensagens totais do zap
-        // variavel que soma o numero de mensagens totais do insatgram
-        // variavel que soma o numero de mensagens de texto do insta e as mensagens de texto do zap.
+                        grafico__whatsapp(mensagens_whatsapp);
 
-        // criar um codigo que recebe todas as msg do zap, e do instagram, e salva em uma lista [['23/04/2021 11:45', 'whatsapp', 'Fulano', 'a mensagem em si'], []...]   onde o tempo ali deve estar formatado em formato 24h (diferente das do zap qé fala 11 da manha e 11 da noite). Juntando todas as msg do zap e do instagram, ele deve ordenar em ordem cronológica, pela data e horario.  para assim posteriormente eu poder analizar mais facil a partir dessa lista. Salvar essa lista em um arquivo txt
-        // criar um novo codigo JS que analisa o JSON de envio do instagram, pra tirar essas informações.
-        // e também... o codigo deve ver pelo timestamp_ms a data da mensagem, e converter para data em dia/mes/ano,  assim eu posso somar o numero de mensagens enviadas pelo insta e zap, no grafico de mensagens por dia.
-        // e, exibir separadamente o numero de mensagens enviadas pelo zap e pelo instagram, no grafico de envio por mes. (pode ser o "Column comparasion" ou "Stacked column" ou "Fixed placement columns")
-        
-        // com base na nova lista de numero de mensagens por dia, unificados. contabilizar denovo qunatdos dias sem conversar e quantos dias conversamos, e também a porcentagem de dias que conversamos, em relação ao numero de dias totais desde a primeira msg.
+                        grafico__instagram(mensagens_instagram);
 
-        // variavel que armazena numero de dias sem conversar
-        // variavel que armazena numero de dias que conversamos
-        // variavel que armazena numero de dias desde a primeira msg ("2021-05-14T20:14:00")
+                        grafico__msg_p_mes(msg_por_mes.whatsapp, msg_por_mes.instagram, msg_por_mes.meses);
 
-        // TITULOS DOS GRAFICOS
-        // grafico_pizza_msg : 'Mensageiros'
-        // grafico_info_zap : 'Whatsapp'
-        // grafico_info_ig : 'Instagram'
-        // grafico_msg_p_mes : 'Envio de mensagens por mês'
-        // grafico_msg_p_dia : 'Envio de mensagens por dia'
+                        grafico__msg_p_dia(msg_por_dia.numero_msg_por_dia, msg_por_dia.datas);
+
+                        grafico__msg_mais_repetida(msg_mais_repetidas.msg.slice(0, 30), msg_mais_repetidas.quantidades_de_repeticoes.daniel.slice(0, 30), msg_mais_repetidas.quantidades_de_repeticoes.tatiane.slice(0, 30));
+
+                        grafico__palavras_mais_ditas(palavras_mais_repetidas.palavra.slice(0, 30), palavras_mais_repetidas.quantidades_de_repeticoes.daniel.slice(0, 30), palavras_mais_repetidas.quantidades_de_repeticoes.tatiane.slice(0, 30));
+
+                        grafico__variacoes_de_amor(variacoes_de_amor_mais_repetidos.palavra.slice(0, 15), variacoes_de_amor_mais_repetidos.quantidades_de_repeticoes.slice(0, 15));
+
+                        grafico__inicio_de_conversa(inicio_de_conversa_mais_repetidos.palavra.slice(0, 15), inicio_de_conversa_mais_repetidos.quantidades_de_repeticoes.daniel.slice(0, 15), inicio_de_conversa_mais_repetidos.quantidades_de_repeticoes.tatiane.slice(0, 15));
+
+                        grafico__nome_pessoas_mais_falado(nomes_mais_falados.palavra.slice(0, 20), nomes_mais_falados.quantidades_de_repeticoes.slice(0, 20));
+
+                        grafico__palavroes_mais_dito(palavroes_mais_repetidos.palavra.slice(0, 25), palavroes_mais_repetidos.quantidades_de_repeticoes.daniel.slice(0, 25), palavroes_mais_repetidos.quantidades_de_repeticoes.tatiane.slice(0, 25));
+
+                        grafico__elogios_mais_dito(elogios_mais_repetidos.palavra.slice(0, 15), elogios_mais_repetidos.quantidades_de_repeticoes.daniel.slice(0, 15), elogios_mais_repetidos.quantidades_de_repeticoes.tatiane.slice(0, 15));
+
+
+
+
+
+
+
+
+                    })
+                    .catch(error => {
+                        console.error('Erro ao obter dados:', error);
+                    });
+            });
+        }
+
+
+
+
+
+        window.onload = function () {
+            importa_estatisticas();
+        };
+
+
+
+
+
+        function formata_numero(numero) {
+            var numero_str = String(numero);
+            var resultado = "";
+            var contador = 0;
+
+            // Percorre a string de trás para frente
+            for (let i = numero_str.length - 1; i >= 0; i--) {
+                resultado = numero_str[i] + resultado;
+                contador++;
+
+                // Adiciona o ponto a cada 3 dígitos, mas não no começo
+                if (contador % 3 === 0 && i !== 0) {
+                    resultado = "." + resultado;
+                }
+            }
+            return resultado;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+        function grafico__proporcao_mensageiros(valores_Y, valores_Y_2) {
+            Highcharts.chart('grafico_pizza_msg', {
+                chart: {
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Proporção entre os mensageiros'
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        allowPointSelect: false,
+                        dataLabels: [{
+                            enabled: true,
+                            distance: 10
+                        }, {
+                            enabled: true,
+                            distance: -40,
+                            format: '{point.percentage:.2f}%',
+                            style: {
+                                color: '#000000',
+                                fontSize: '1.1em',
+                                textOutline: 'none',
+                                opacity: 0.7
+                            }
+                        }]
+                    }
+                },
+                series: [
+                    {
+                        name: 'Mensagens',
+                        colorByPoint: true,
+                        data: [
+                            {
+                                name: 'Whatsapp',
+                                y: valores_Y,
+                                color: "#4EC34B"
+                            },
+                            {
+                                name: 'Instagram',
+                                y: valores_Y_2,
+                                color: "#DD4C83"
+                            }
+                        ]
+                    }
+                ]
+            });
+        }
+
+
+
+
+
+        function grafico__whatsapp(objeto_estatisticas_do_zap) {
+
+            var texto_daniel = objeto_estatisticas_do_zap.texto_daniel;
+            var texto_tatiane = objeto_estatisticas_do_zap.texto_tatiane;
+            var foto_video_daniel = objeto_estatisticas_do_zap.foto_video_daniel;
+            var foto_video_tatiane = objeto_estatisticas_do_zap.foto_video_tatiane;
+            var audio_daniel = objeto_estatisticas_do_zap.audio_daniel;
+            var audio_tatiane = objeto_estatisticas_do_zap.audio_tatiane;
+            var figurinha_daniel = objeto_estatisticas_do_zap.figurinha_daniel;
+            var figurinha_tatiane = objeto_estatisticas_do_zap.figurinha_tatiane;
+
+            var dados_daniel = [texto_daniel, foto_video_daniel, audio_daniel, figurinha_daniel];
+            var dados_tatiane = [texto_tatiane, foto_video_tatiane, audio_tatiane, figurinha_tatiane];
+
+
+            Highcharts.chart("grafico_info_zap", {
+                chart: {
+                    type: "bar",
+                    zoomType: "y",
+                },
+                title: {
+                    text: "Whatsapp",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: ["Msg de texto", "Fotos", "Audio", "Figurinhas"],
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    valueSuffix: "",
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: "6",
+                        dataLabels: {
+                            enabled: true,
+                            color: '#FFFFFF',
+                            align: 'right',
+                            style: {
+                                fontSize: '12px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        },
+                        groupPadding: 0.11,
+                    },
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: dados_daniel,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: dados_tatiane,
+                    },
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__instagram(objeto_estatisticas_do_insta) {
+
+            var texto_daniel = objeto_estatisticas_do_insta.texto_daniel;
+            var texto_tatiane = objeto_estatisticas_do_insta.texto_tatiane;
+            var post_daniel = objeto_estatisticas_do_insta.post_daniel;
+            var post_tatiane = objeto_estatisticas_do_insta.post_tatiane;
+            var reacoes_daniel = objeto_estatisticas_do_insta.reacoes_daniel;
+            var reacoes_tatiane = objeto_estatisticas_do_insta.reacoes_tatiane;
+
+            var dados_daniel = [texto_daniel, post_daniel, reacoes_daniel];
+            var dados_tatiane = [texto_tatiane, post_tatiane, reacoes_tatiane];
+
+            Highcharts.chart("grafico_info_ig", {
+                chart: {
+                    type: "bar",
+                    zoomType: "y",
+                },
+                title: {
+                    text: "Instagram",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: ["Msg de texto", "Posts enviados", "Publicações reagidos"],
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    valueSuffix: "",
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: "6",
+                        dataLabels: {
+                            enabled: true,
+                            color: '#FFFFFF',
+                            align: 'right',
+                            style: {
+                                fontSize: '12px',
+                                fontFamily: 'Verdana, sans-serif'
+                            }
+                        },
+                        groupPadding: 0.11,
+                    },
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: dados_daniel,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: dados_tatiane,
+                    },
+                ],
+            })
+        }
+
+
+
+
+
+        function grafico__msg_p_mes(valores_Y, valores_Y_2, valores_X) {
+
+            Highcharts.chart('grafico_msg_p_mes', {
+                chart: {
+                    type: 'column',
+                    zoomType: 'x'
+                },
+
+                title: {
+                    text: 'Envio de mensagens por mês'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    categories: valores_X,
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Whatsapp',
+                    color: '#4EC34B',
+                    borderRadius: 6,
+                    groupPadding: 0.1,
+                    data: valores_Y,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        format: '{y}',
+                        y: 0,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                {
+                    name: 'Instagram',
+                    color: '#DD4C83',
+                    borderRadius: 6,
+                    groupPadding: 0.1,
+                    data: valores_Y_2,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        format: '{y}',
+                        y: 0,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }
+                ]
+            });
+
+        }
+
+
+
+
+
+        function grafico__msg_p_dia(valores_Y, valores_X) {
+
+            Highcharts.chart('grafico_msg_p_dia', {
+                chart: {
+                    type: 'column',
+                    zoomType: 'x'
+                },
+
+                title: {
+                    text: 'Envio de mensagens por dia'
+                },
+                subtitle: {
+                    text: ''
+                },
+                xAxis: {
+                    title: {
+                        enabled: false
+                    },
+                    categories: valores_X,
+                },
+                yAxis: {
+                    title: {
+                        enabled: false
+                    }
+                },
+                tooltip: {
+                    valueSuffix: " mensagens",
+                },
+                legend: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Ambos',
+                    color: '#4036AD',
+                    borderRadius: 6,
+                    groupPadding: 0,
+                    data: valores_Y,
+                    dataLabels: {
+                        enabled: true,
+                        rotation: -90,
+                        color: '#FFFFFF',
+                        verticalAlign: 'bottom',
+                        format: '{y}',
+                        y: 0,
+                        style: {
+                            fontSize: '13px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                }
+                ]
+            });
+
+        }
+
+
+
+
+
+        function grafico__msg_mais_repetida(lista_mensagens, num_repeticao_D, num_repeticao_T) {
+            Highcharts.chart("grafico_msgs_mais_repetidas", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Mensagens mais repetidas",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: num_repeticao_D,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: num_repeticao_T,
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__palavras_mais_ditas(lista_mensagens, num_repeticao_D, num_repeticao_T) {
+            Highcharts.chart("grafico_palavras_mais_repetidas", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Palavras mais ditas",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: num_repeticao_D,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: num_repeticao_T,
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__variacoes_de_amor(lista_mensagens, num_repeticao) {
+            Highcharts.chart("grafico_variacoes_de_amor", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Variações de 'Amor' mais ditas",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+                legend: {
+                    enabled: false,
+                },
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Numero de vezes dito",
+                        color: "#4036AD",
+                        data: num_repeticao,
+                        dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{y}',
+                        y: 0,
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__inicio_de_conversa(lista_mensagens, num_repeticao_D, num_repeticao_T) {
+            Highcharts.chart("grafico_iniciando_conversa", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Inicio de conversa mais usado",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: num_repeticao_D,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: num_repeticao_T,
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__nome_pessoas_mais_falado(lista_mensagens, num_repeticao) {
+            Highcharts.chart("grafico_nomes_mais_falados", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Pessoas mais comentadas",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+                legend: {
+                    enabled: false,
+                },
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Numero de vezes dito",
+                        color: "#4036AD",
+                        data: num_repeticao,
+                        dataLabels: {
+                        enabled: true,
+                        rotation: 0,
+                        color: '#FFFFFF',
+                        align: 'right',
+                        format: '{y}',
+                        y: 0,
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__palavroes_mais_dito(lista_mensagens, num_repeticao_D, num_repeticao_T) {
+            Highcharts.chart("grafico_palavroes_mais_falados", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Palavrões mais ditos",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: num_repeticao_D,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: num_repeticao_T,
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+        function grafico__elogios_mais_dito(lista_mensagens, num_repeticao_D, num_repeticao_T) {
+            Highcharts.chart("grafico_elogios_mais_ditos", {
+                chart: {
+                    type: "bar",
+                    zoomType: "x",
+                },
+                title: {
+                    text: "Elogios mais ditos",
+                },
+                subtitle: {
+                    enabled: false,
+                },
+                xAxis: {
+                    categories: lista_mensagens,
+                    title: {
+                        enabled: false,
+                    },
+                    gridLineWidth: 1,
+                },
+                yAxis: {
+                    gridLineWidth: 1,
+                    title: {
+                        enabled: false,
+                    },
+                },
+                tooltip: {
+                    headerFormat: '<b>{category}</b><br/>',
+                    pointFormat: '{series.name}: {point.y}<br/>'
+                },
+
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        dataLabels: {
+                        enabled: true,
+                        color: '#FFFFFF',
+                        align: 'center',
+                        style: {
+                            fontSize: '12px',
+                            fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                    }
+                },
+                credits: {
+                    enabled: false,
+                },
+                series: [
+                    {
+                        name: "Daniel",
+                        color: "#46ABD4",
+                        data: num_repeticao_D,
+                    },
+                    {
+                        name: "Tatiane",
+                        color: "#F0345A",
+                        data: num_repeticao_T,
+                    }
+                ],
+            })
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
